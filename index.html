@@ -1,53 +1,94 @@
 function search() {
 
-  var input = document.getElementById('accountInput');
-  var button = document.getElementById('searchButton');
+  var input =
+    document.getElementById('accountInput');
 
-  var account = input.value.trim();
+  var button =
+    document.getElementById('searchButton');
+
+  var account =
+    input.value.trim();
 
   clearMessage();
 
   if (!account) {
-    showMessage('♡ กรุณาใส่ @account ก่อนนะคะ ♡');
+
+    showMessage(
+      '♡ กรุณาใส่ @account ก่อนนะคะ ♡'
+    );
+
     return;
   }
 
   button.disabled = true;
   button.textContent = 'loading... ♡';
 
-  var url =
-    'https://script.google.com/macros/s/AKfycbwNzfYqzFVPMbMTw3biZRFy2s-2niSxTe1-tdMpdsGzZYOrhVUz7EB_DjvSBYNxiCOKRw/exec' +
-    '?account=' +
-    encodeURIComponent(account);
 
-  fetch(url)
-    .then(function(response) {
+  var callbackName =
+    'orderCallback_' + Date.now();
 
-      if (!response.ok) {
-        throw new Error('HTTP ' + response.status);
+
+  window[callbackName] =
+    function(data) {
+
+      try {
+
+        renderResults(data);
+
+      } catch (error) {
+
+        console.error(error);
+
+        showMessage(
+          'เกิดข้อผิดพลาดในการแสดงข้อมูลค่ะ ♡'
+        );
+
       }
 
-      return response.json();
+      button.disabled = false;
+      button.textContent = 'search ♡';
 
-    })
-    .then(function(data) {
 
-      renderResults(data);
+      try {
+        delete window[callbackName];
+      } catch (e) {}
 
-    })
-    .catch(function(error) {
+    };
 
-      console.error(error);
+
+  var script =
+    document.createElement('script');
+
+
+  script.src =
+    'https://script.google.com/macros/s/' +
+    'AKfycbwNzfYqzFVPMbMTw3biZRFy2s-2niSxTe1-tdMpdsGzZYOrhVUz7EB_DjvSBYNxiCOKRw' +
+    '/exec?account=' +
+    encodeURIComponent(account) +
+    '&callback=' +
+    encodeURIComponent(callbackName) +
+    '&_=' +
+    Date.now();
+
+
+  script.onerror =
+    function() {
 
       showMessage(
         'ไม่สามารถเชื่อมต่อระบบได้ กรุณาลองใหม่อีกครั้งค่ะ ♡'
       );
 
-    })
-    .finally(function() {
-
       button.disabled = false;
       button.textContent = 'search ♡';
 
-    });
+      try {
+        delete window[callbackName];
+      } catch (e) {}
+
+      script.remove();
+    };
+
+
+  document.head.appendChild(script);
+
 }
