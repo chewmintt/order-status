@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>♡ order status ♡</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Mali:wght@300;400;500;600;700&family=Quicksand:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <style>
+
+    * {
+      box-sizing: border-box;
+    }
+
+
+    body {
+
+      margin: 0;
+
+      padding: 25px 15px 40px;
+
+      background:
+        linear-gradient(
+          180deg,
+          #fff8fb 0%,
+          #ffffff 100%
+        );
+
+      color: #765d67;
+
+      font-family:
+        "Mali",
+        "Quicksand",
+        sans-serif;
+
+      min-height: 100vh;
+    }
+
+
+    .container {
+
+      width: 100%;
+
+      max-width: 1250px;
+
+      margin: auto;
+    }
+
+
+    .header {
+
+      text-align: center;
+
+      margin-bottom: 25px;
+    }
+
+
+    .gif {
+
+      width: 150px;
+
+      max-width: 55vw;
+
+      display: block;
+
+      margin: 0 auto 10px;
+
+      border-radius: 25px;
+    }
+
+
+    h1 {
+
+      margin: 5px 0 8px;
+
+      font-size: 27px;
+
+      font-weight: 700;
+
+      color: #e79ab5;
+
+      line-height: 1.5;
+    }
+
+
+    .subtitle {
+
+      margin: 0;
+
+      color: #9b7d88;
+
+      font-size: 14px;
+
+      line-height: 1.8;
+    }
+
+
+    .subtitle .x {
+
+      color: #e59bb5;
+
+      font-weight: 600;
+    }
+
+
+    .search-box {
+
+      background: #ffffff;
+
+      border: 1px solid #f4dce6;
+
+      box-shadow:
+        0 8px 25px rgba(224, 159, 181, 0.12);
+
+      border-radius: 22px;
+
+      padding: 15px;
+
+      display: flex;
+
+      gap: 10px;
+
+      margin: 25px 0 18px;
+    }
+
+
+    .search-box input {
+
+      flex: 1;
+
+      min-width: 0;
+
+      border: 1px solid #f0d8e2;
+
+      outline: none;
+
+      border-radius: 15px;
+
+      padding: 13px 16px;
+
+      font-family:
+        "Mali",
+        "Quicksand",
+        sans-serif;
+
+      font-size: 14px;
+
+      color: #765d67;
+
+      background: #fffafb;
+    }
+
+
+    .search-box input:focus {
+
+      border-color: #eab0c4;
+
+      box-shadow:
+        0 0 0 3px rgba(234, 176, 196, 0.13);
+    }
+
+
+    .search-box button {
+
+      border: none;
+
+      background: #efabc2;
+
+      color: white;
+
+      border-radius: 15px;
+
+      padding: 0 23px;
+
+      font-family:
+        "Mali",
+        "Quicksand",
+        sans-serif;
+
+      font-size: 14px;
+
+      font-weight: 600;
+
+      cursor: pointer;
+
+      transition: .2s;
+    }
+
+
+    .search-box button:hover {
+
+      transform: translateY(-1px);
+
+      background: #e89db8;
+    }
+
+
+    .search-box button:disabled {
+
+      opacity: .6;
+
+      cursor: wait;
+
+      transform: none;
+    }
+
+
+    .message {
+
+      text-align: center;
+
+      margin: 10px 0 18px;
+
+      color: #d88ca7;
+
+      font-size: 14px;
+
+      min-height: 22px;
+    }
+
+
+    .table-wrap {
+
+      width: 100%;
+
+      overflow-x: auto;
+
+      -webkit-overflow-scrolling: touch;
+
+      border-radius: 22px;
+
+      background: #ffffff;
+
+      box-shadow:
+        0 8px 28px rgba(224, 159, 181, 0.13);
+
+      border: 1px solid #f4dce6;
+    }
+
+
+    table {
+
+      width: 100%;
+
+      min-width: 1050px;
+
+      border-collapse: separate;
+
+      border-spacing: 0;
+
+      font-size: 13px;
+    }
+
+
+    th {
+
+      background: #f8dce7;
+
+      color: #936477;
+
+      padding: 14px 12px;
+
+      text-align: center;
+
+      font-weight: 700;
+
+      white-space: nowrap;
+
+      border-bottom: 1px solid #efd1dc;
+    }
+
+
+    th:first-child {
+
+      border-top-left-radius: 22px;
+    }
+
+
+    th:last-child {
+
+      border-top-right-radius: 22px;
+    }
+
+
+    td {
+
+      padding: 13px 12px;
+
+      text-align: center;
+
+      background: #ffffff;
+
+      border-bottom: 1px solid #f8e8ee;
+
+      color: #765d67;
+
+      white-space: nowrap;
+
+      vertical-align: middle;
+    }
+
+
+    tbody tr:hover td {
+
+      background: #fffafd;
+    }
+
+
+    tbody tr:last-child td {
+
+      border-bottom: none;
+    }
+
+
+    td.acc {
+
+      background: #fff0f5;
+
+      color: #dc88a5;
+
+      font-weight: 700;
+    }
+
+
+    td.order {
+
+      background: #fff7fa;
+
+      color: #ce7898;
+
+      font-weight: 600;
+    }
+
+
+    td.shipping {
+
+      font-weight: 600;
+    }
+
+
+    td.balance {
+
+      background: #f0faf4;
+
+      color: #69a984;
+
+      font-weight: 700;
+    }
+
+
+    .status {
+
+      display: inline-block;
+
+      padding: 5px 12px;
+
+      border-radius: 999px;
+
+      font-size: 12px;
+
+      font-weight: 600;
+
+      background: #fce7ef;
+
+      color: #d986a2;
+    }
+
+
+    .status.done {
+
+      background: #e8f7ed;
+
+      color: #6aa67e;
+    }
+
+
+    .status.wait {
+
+      background: #fff4d9;
+
+      color: #c49a48;
+    }
+
+
+    .status.cancel {
+
+      background: #f8e7e7;
+
+      color: #c87979;
+    }
+
+
+    .status.ship {
+
+      background: #eaf4ff;
+
+      color: #719bc7;
+    }
+
+
+    .note {
+
+      white-space: normal;
+
+      min-width: 180px;
+
+      max-width: 260px;
+
+      line-height: 1.6;
+    }
+
+
+    .empty {
+
+      padding: 35px 20px;
+
+      text-align: center;
+
+      color: #c59dab;
+    }
+
+
+    .footer {
+
+      text-align: center;
+
+      margin-top: 25px;
+
+      color: #c59dab;
+
+      font-size: 13px;
+
+      line-height: 1.8;
+    }
+
+
+    .footer strong {
+
+      color: #e49bb4;
+    }
+
+
+    @media (max-width: 600px) {
+
+      body {
+
+        padding:
+          15px 10px 30px;
+      }
+
+
+      h1 {
+
+        font-size: 21px;
+      }
+
+
+      .subtitle {
+
+        font-size: 12px;
+      }
+
+
+      .gif {
+
+        width: 125px;
+      }
+
+
+      .search-box {
+
+        padding: 10px;
+
+        border-radius: 18px;
+      }
+
+
+      .search-box input {
+
+        font-size: 13px;
+
+        padding: 11px 12px;
+      }
+
+
+      .search-box button {
+
+        padding: 0 16px;
+
+        font-size: 13px;
+      }
+
+
+      .table-wrap {
+
+        border-radius: 18px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+  <div class="container">
+
+
+    <div class="header">
+
+      <img
+        class="gif"
+        src="https://i.pinimg.com/originals/6c/35/2d/6c352de24f95e2ee2aa13778b8220566.gif"
+        alt="cute gif"
+      >
+
+      <h1>
+        𓏼 𓈒♡ྀི web status @cchewmintt🏠
+      </h1>
+
+      <p class="subtitle">
+
+        ♡ หากสถานะยังค้างและมีข้อสงสัยอะไร
+        สอบถามทาง dm ได้เลยน้า ♡
+
+        <br>
+
+        <span class="x">
+          x : @chewmintt
+        </span>
+
+      </p>
+
+    </div>
+
+
+    <div class="search-box">
+
+      <input
+        id="accountInput"
+        type="text"
+        placeholder="enter your @account ♡"
+        autocomplete="off"
+        autocapitalize="none"
+        spellcheck="false"
+      >
+
+      <button
+        id="searchButton"
+        onclick="search()"
+      >
+        search ♡
+      </button>
+
+    </div>
+
+
+    <div
+      id="message"
+      class="message"
+    ></div>
+
+
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>date</th>
+
+            <th>@ACC</th>
+
+            <th>order</th>
+
+            <th>payment</th>
+
+            <th>STATUS</th>
+
+            <th>shipping</th>
+
+            <th>NOTE</th>
+
+            <th>ยอดคงเหลือ</th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="results">
+
+          <tr>
+
+            <td
+              colspan="8"
+              class="empty"
+            >
+              ♡ enter your @account เพื่อค้นหาสถานะ ♡
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+    <div class="footer">
+
+      ♡ thank you for your order ♡
+
+      <br>
+
+      <strong>@chewmintt</strong>
+
+    </div>
+
+
+  </div>
+
+
+<script>
+
+
+/* ==========================================
+   ใส่ URL ของ Apps Script Web App ตรงนี้
+   ========================================== */
+
+var API_URL =
+  'https://script.google.com/macros/s/AKfycbwNzfYqzFVPMbMTw3biZRFy2s-2niSxTe1-tdMpdsGzZYOrhVUz7EB_DjvSBYNxiCOKRw/exec';
+
+
+/* ==========================================
+   SEARCH
+   ========================================== */
+
+function search() {
+
+  var input =
+    document.getElementById('accountInput');
+
+  var button =
+    document.getElementById('searchButton');
+
+  var account =
+    input.value.trim();
+
+
+  clearMessage();
+
+
+  if (!account) {
+
+    showMessage(
+      '♡ กรุณาใส่ @account ก่อนนะคะ ♡'
+    );
+
+    return;
+  }
+
+
+  button.disabled = true;
+
+  button.textContent = 'loading... ♡';
+
+
+  var callbackName =
+    'orderStatusCallback_' +
+    Date.now();
+
+
+  window[callbackName] =
+    function(data) {
+
+      try {
+
+        renderResults(data);
+
+      } catch (error) {
+
+        showMessage(
+          'เกิดข้อผิดพลาดในการแสดงข้อมูลค่ะ'
+        );
+
+      }
+
+
+      button.disabled = false;
+
+      button.textContent = 'search ♡';
+
+
+      delete window[callbackName];
+    };
+
+
+  var script =
+    document.createElement('script');
+
+
+  script.src =
+    API_URL +
+    '?account=' +
+    encodeURIComponent(account) +
+    '&callback=' +
+    encodeURIComponent(callbackName);
+
+
+  script.onerror = function() {
+
+    showMessage(
+      'ไม่สามารถเชื่อมต่อระบบได้ กรุณาลองใหม่อีกครั้งค่ะ ♡'
+    );
+
+
+    button.disabled = false;
+
+    button.textContent = 'search ♡';
+
+
+    delete window[callbackName];
+
+    script.remove();
+  };
+
+
+  document.body.appendChild(script);
+
+}
+
+
+/* ==========================================
+   ENTER
+   ========================================== */
+
+document
+  .getElementById('accountInput')
+  .addEventListener(
+    'keydown',
+    function(event) {
+
+      if (event.key === 'Enter') {
+
+        search();
+
+      }
+
+    }
+  );
+
+
+/* ==========================================
+   RENDER RESULTS
+   ========================================== */
+
+function renderResults(data) {
+
+  var tbody =
+    document.getElementById('results');
+
+
+  if (!Array.isArray(data) || data.length === 0) {
+
+    tbody.innerHTML =
+      '<tr>' +
+      '<td colspan="8" class="empty">' +
+      '♡ ไม่พบข้อมูลของ @account นี้ค่ะ ♡' +
+      '</td>' +
+      '</tr>';
+
+    return;
+  }
+
+
+  tbody.innerHTML =
+    data.map(function(row) {
+
+      var status =
+        row[4] || '-';
+
+
+      return (
+
+        '<tr>' +
+
+        '<td>' +
+        escapeHtml(row[0]) +
+        '</td>' +
+
+        '<td class="acc">' +
+        escapeHtml(row[1]) +
+        '</td>' +
+
+        '<td class="order">' +
+        escapeHtml(row[2]) +
+        '</td>' +
+
+        '<td>' +
+        escapeHtml(row[3]) +
+        '</td>' +
+
+        '<td>' +
+        '<span class="status ' +
+        getStatusClass(status) +
+        '">' +
+        escapeHtml(status) +
+        '</span>' +
+        '</td>' +
+
+        '<td class="shipping">' +
+        escapeHtml(row[5]) +
+        '</td>' +
+
+        '<td class="note">' +
+        escapeHtml(row[6]) +
+        '</td>' +
+
+        '<td class="balance">' +
+        escapeHtml(row[7]) +
+        '</td>' +
+
+        '</tr>'
+
+      );
+
+    }).join('');
+
+}
+
+
+/* ==========================================
+   STATUS COLOR
+   ========================================== */
+
+function getStatusClass(status) {
+
+  var value =
+    String(status || '')
+      .toLowerCase();
+
+
+  if (
+    value.includes('สำเร็จ') ||
+    value.includes('เสร็จ') ||
+    value.includes('complete') ||
+    value.includes('done')
+  ) {
+
+    return 'done';
+
+  }
+
+
+  if (
+    value.includes('รอ') ||
+    value.includes('wait') ||
+    value.includes('pending')
+  ) {
+
+    return 'wait';
+
+  }
+
+
+  if (
+    value.includes('ยกเลิก') ||
+    value.includes('cancel')
+  ) {
+
+    return 'cancel';
+
+  }
+
+
+  if (
+    value.includes('ส่ง') ||
+    value.includes('ship')
+  ) {
+
+    return 'ship';
+
+  }
+
+
+  return '';
+
+}
+
+
+/* ==========================================
+   MESSAGE
+   ========================================== */
+
+function showMessage(message) {
+
+  document.getElementById('message')
+    .textContent = message;
+
+}
+
+
+function clearMessage() {
+
+  document.getElementById('message')
+    .textContent = '';
+
+}
+
+
+/* ==========================================
+   ESCAPE HTML
+   ========================================== */
+
+function escapeHtml(value) {
+
+  return String(value == null ? '' : value)
+
+    .replace(/&/g, '&amp;')
+
+    .replace(/</g, '&lt;')
+
+    .replace(/>/g, '&gt;')
+
+    .replace(/"/g, '&quot;')
+
+    .replace(/'/g, '&#039;');
+
+}
+
+</script>
+
+
+</body>
+
+</html>
